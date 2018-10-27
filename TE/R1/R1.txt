@@ -1,0 +1,154 @@
+//FIRST ASSG
+
+> getwd() 		//to check working directory
+
+> facebook <- read.csv("dataset_Facebook.csv")			//load pre given data into facebook variable
+> head(facebook)
+
+> fa <-read.csv2("one.csv")
+> dim(fa)
+[1] 500  19
+> nrow(fa)
+[1] 500
+> ncol(fa)
+[1] 19
+> head(fa)
+
+> sub=fa[c('comment','like','share')]			//1st way of creating subsets
+> head(sub)
+  comment like share
+1       4   79    17
+2       5  130    29
+3       0   66    14
+4      58 1572   147
+5      19  325    49
+6       1  152    33
+> write.csv(sub,"facebook.csv")
+> subset1= subset(sub,comment>50)				//2nd way of creating subsets
+> subset1
+    comment like share
+4        58 1572   147
+143      60  859    90
+169     144 1622   208
+229      64  367    25
+245     372 5172   790
+289     103  469    33
+380      51 1998   128
+461     146 1546   181
+481      56  360    99
+
+
+//merging data
+> dataA=read.csv2("one.csv")
+> dataB=read.csv2("two.csv")
+> dim(dataA)
+[1] 500  19
+> newAB=rbind(dataA,dataB)
+> dim(newAB)
+[1] 1000   19
+
+
+//sorting descending
+> x<-sub[order(-sub$share),]
+> head(x)
+    comment like share
+245     372 5172   790
+169     144 1622   208
+461     146 1546   181
+4        58 1572   147
+106      42  955   139
+380      51 1998   128
+
+//ascending
+> x<-sub[order(sub$share),]
+> head(x)
+    comment like share
+22        0    0     0
+77        0    0     0
+101       0    0     0
+118       0    7     0
+130       0    3     0
+418       0    0     0
+
+//Transposing
+> tran=t(x)
+> head(x)
+    comment like share
+245     372 5172   790
+169     144 1622   208
+461     146 1546   181
+4        58 1572   147
+106      42  955   139
+380      51 1998   128
+> head(tran)
+
+
+//melting
+
+ > install.packages("reshape")					//if package not installed..run this
+ > library(reshape)
+ > melt(data = sub,id.vars ="comment")
+
+ > sub1=d[c('Post.Month','Post.Hour','Paid')]
+ > cast(sub1,Post.Hour ~ Post.Month,mean,value='Paid')
+
+//casting
+
+> sub=d[c('Post.Month','Post.Hour','Paid')]
+> sub
+> cast(sub,Post.Hour ~ Post.Month, mean, value ='Paid')
+
+
+
+
+*EROR,CLEANING,TRANSFORMATION*
+
+
+//error
+
+>head(airquality)
+>mean(airquality$Ozone)   //this will give error 
+>mean(airquality$Ozone,na.rm = TRUE)
+>max(airquality$Ozone)   //this will give error
+>max(airquality$Ozone,na.rm = TRUE)
+
+
+
+//cleaning
+
+>summary(airquality)
+>air=airquality
+>air$Ozone = ifelse(is.na(air$Ozone),median(air$Ozone,na.rm = TRUE),air$Ozone)
+>summary(air)
+>air$Solar.R=ifelse(is.na(air$Solar.R),median(air$Solar.R,na.rm = TRUE),air$Solar.R)
+>summary(air)
+
+
+//Transformation
+
+>air$Solar.Danger=air$Solar.R > 100
+>head(air)
+>brks = c(0,50,100,150,200,250,300,350)
+>brks
+>air$Solar.R = cut(air$Solar.R,breaks=brks,include.lowest = TRUE)       
+
+
+>air1=air
+>air1$Month=gsub(5,"May",air1$Month)
+>air1$Month=gsub(6."june",air1$Month)
+>air1$Month=gsub(7,"July",air1$Month)
+
+
+//Data integration
+> sport=c("Hockey","Baseball","Football")
+> league=c("L1","L2","L3")
+> trophy=c("Sachin","Saurav","Yuvraj")
+> trophies1=cbind(sport,league,trophy)
+> trophies1
+
+> trophies2=data.frame(sport=c("swimming","running"),league=c("watson","LEE"),trophy=c("Gavaskar","Tendulkar"),StringsAsFactors=FALSE)
+> trophies2
+
+> trophies=rbind(trophies1,trophies2)
+> trophies
+

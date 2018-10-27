@@ -1,0 +1,652 @@
+ 
+RKWard output initialized on Sun Apr  8 13:16:46 2018 
+
+Show TOC Go to top 
+Messages, warnings, or errors:
+Loading required package: foreign
+Error in read.spss("/home/snehal/Downloads/data.csv", to.data.frame = TRUE,  : 
+  file '/home/snehal/Downloads/data.csv' is not in any supported SPSS format
+Calls: local ... eval.parent -> eval -> eval -> eval -> eval -> read.spss
+
+Run again
+subset2<-subset(mydata,X>=2000 & X<=3000 ,select=c(reviewerID,asin,reviewerName,overall))
+head(subset2)
+
+         reviewerID       asin                             reviewerName overall
+2001 A364RD0HT4EKNZ B000056JCY                                ActionJem       1
+2002 A2TMEAO982453X B000056JCY                              Adam Bishop       1
+2003 A1DJQZITT2YEH5 B000056JCY Amazon Customer "Mom of 2 kids 10 and 7"       3
+2004  ALOPR5M2VM6MJ B000056JCY                                    AntOB       5
+2005 A30H2335OM7RD6 B000056JCY                            apoem "apoem"       5
+2006 A13OBBS94PRVLP B000056JCY                                B. Miller       4
+
+tail(subset2)
+
+         reviewerID       asin       reviewerName overall
+2996 A18H64K7RB1BRA B000056W7R Marguerite Connell       5
+2997 A2V6N5DEO8ZNWI B000056W7R   Meredith Bastoni       4
+2998 A2PYTV71CUGY80 B000056W7R   Michele Franklin       1
+2999 A213MWBSXZTCFJ B000056W7R         M. J. Root       5
+3000 A2DHBOLCVKTKNU B000056W7R                 MK       5
+3001 A15CWSUI8LNNR3 B000056W7R           Moonbeam       4
+
+subset1<-subset(mydata,X>=4000 & X<=5000 ,select=c(reviewerID,asin,reviewerName,overall))
+head(subset1)
+
+         reviewerID       asin                          reviewerName overall
+4001 A2NUI2U7ITNXQM B00005BXKM                        Amanda Carlton       1
+4002 A1WF68T1KI3AW7 B00005BXKM Amazon Customer "Emergency Physician"       4
+4003 A36PMRE07ISTRB B00005BXKM                 Amazon Customer "pri"       4
+4004 A26T5F7Q9IO00U B00005BXKM                  Amelia Abuan Drennan       4
+4005 A3GMOEHRRJL1V4 B00005BXKM                        A. M. Williams       5
+4006 A11FJ1ZQOJ4X8L B00005BXKM                                Angela       5
+
+tail(subset1)
+
+         reviewerID       asin                   reviewerName overall
+4996 A2SHSPUC68H34G B00005V6C8                        Tony L.       3
+4997 A2UDGUP80JVKBO B00005V6C8 Vicki A. Peters "Vicki Peters"       5
+4998 A36A0QRF0PO4EV B00005V6C8         Vincent Bronte "Ciela"       4
+4999 A1A596A9X1JN2A B00005V6C8                            Viz       5
+5000 A3VZZAN0023N5Z B00005V6C8    Wine Please "mom of 3 boys"       5
+5001 A1Q1T811N4IY3Z B00005V6C8                   Wixby Bonnet       4
+
+mer=merge(x = subset1, y = subset2, by = "reviewerID", all = TRUE)
+head(mer)
+
+      reviewerID     asin.x reviewerName.x overall.x     asin.y reviewerName.y
+1 A100ZTESFDD58F       <NA>           <NA>        NA B000056JCY     L. Eichert
+2 A101C7U4P268CU       <NA>           <NA>        NA B000056JJF       B. Frame
+3 A1021X1F41GBCJ B00005C6OI        F. Khan         5       <NA>           <NA>
+4 A10498QBRH0TFJ       <NA>           <NA>        NA B000056JJ8             RR
+5 A105LFG3MT4N23       <NA>           <NA>        NA B000056OUH             TM
+6  A109JH6SL0SVL B00005BXKM     R. Seifert         3       <NA>           <NA>
+  overall.y
+1         5
+2         3
+3        NA
+4         1
+5         5
+6        NA
+
+tail(mer)
+
+        reviewerID     asin.x                            reviewerName.x
+1852 AZN863MCVSJMS       <NA>                                      <NA>
+1853 AZRKOBO9ICNKV       <NA>                                      <NA>
+1854 AZSWK30ZQ64UX B00005U8T5                               Zo's  Mommy
+1855 AZTY4WBRB5MAL B00005JIVI Rosemary A. Bertinelli "Freelance Writer"
+1856 AZUMVJS0QEND3       <NA>                                      <NA>
+1857 AZX1LTRNLSZ24 B00005JIVI                                      Dana
+     overall.x     asin.y          reviewerName.y overall.y
+1852        NA B000056W6F             Casey Tiner         4
+1853        NA B000056OV0              Eric Chang         5
+1854         1       <NA>                    <NA>        NA
+1855         5       <NA>                    <NA>        NA
+1856        NA B000056OUH marineswife85 "Heather"         5
+1857         4       <NA>                    <NA>        NA
+
+#sorting
+
+sortsubset1<-subset1[order(subset1$overall),]
+head(sortsubset1)
+
+         reviewerID       asin           reviewerName overall
+4001 A2NUI2U7ITNXQM B00005BXKM         Amanda Carlton       1
+4034 A18JQUOB91ZOHX B00005BXKM              Erin Kays       1
+4037 A3HETHW2XD3DWH B00005BXKM             frisky2000       1
+4046 A12JF1M45OIDD2 B00005BXKM            Jamie Belle       1
+4052 A1IE136UY1GAL9 B00005BXKM                    JMM       1
+4072  A92K4AOU1VM5Q B00005BXKM Lihan Liu "Xinzhi Mao"       1
+
+tail(sortsubset1)
+
+         reviewerID       asin                   reviewerName overall
+4992 A3DOPRK8MAGG6C B00005V6C8                       SuperAng       5
+4993 A2ZA4FYM7ML6QP B00005V6C8                 Taylor's Mommy       5
+4994 A2HHAV29CZ1OIE B00005V6C8                        TheProf       5
+4997 A2UDGUP80JVKBO B00005V6C8 Vicki A. Peters "Vicki Peters"       5
+4999 A1A596A9X1JN2A B00005V6C8                            Viz       5
+5000 A3VZZAN0023N5Z B00005V6C8    Wine Please "mom of 3 boys"       5
+
+sortsubset3<-subset1[order(subset1$"reviewerName"),]
+head(sortsubset3)
+
+         reviewerID       asin  reviewerName overall
+4263 A1I9SL0MNFCBT6 B00005C1HC                     5
+4310 A3NRGAYOT754NE B00005C5H4                     5
+4498 A3GOGTKZ3MO5HB B00005JIVI                     5
+4798  AVWEIEGRO8IFB B00005U8T5                     5
+4695 A2SEIN7KXDKK9J B00005NCAW "bens_mommie"       4
+4033 A2JRRT2LJE660A B00005BXKM     "erika_m"       3
+
+tail(sortsubset3)
+
+         reviewerID       asin reviewerName overall
+4471 A2JUU1JY9EXL9D B00005CARW  Zenobia0000       5
+4151 A3PEQDXTZ0G6XK B00005BXKM    ZeroSeVen       4
+4152 A3FASB26KZR91C B00005BXKM        zkito       5
+4840  AZSWK30ZQ64UX B00005U8T5  Zo's  Mommy       1
+4153  A3UKDS0JCJ68Y B00005BXKM    Zoilita57       5
+4391  AKK49Y5DWSEND B00005C5H4    ZombieLuv       5
+
+sortsubset4<-subset2[order(subset2$"reviewerName"),]
+head(sortsubset4)
+
+         reviewerID       asin         reviewerName overall
+2041 A2A4T3NHN1P5ZS B000056JHP                            5
+2430 A2NFY0M9QYY305 B000056OUO                            4
+2457 A2JRRT2LJE660A B000056OUO            "erika_m"       4
+2370 A2DQ9OB2YUVSZM B000056OUH "eyeseecolecolecole"       5
+2879 A2DQ9OB2YUVSZM B000056W4X "eyeseecolecolecole"       2
+2780 A2V0Q781PF78Q4 B000056OWB            "jenp911"       1
+
+tail(sortsubset4)
+
+         reviewerID       asin               reviewerName overall
+2098 A1BJMLMFD894MO B000056JIE                  z23raft23       1
+2831   A1ZCYIK3SLXA B000056OWT Zain/Omar's mommy "sana07"       4
+2832 A22SX87T1481A0 B000056OWT                    Zhandra       5
+2287 A3CVPPLPTHUVY9 B000056JMU                       zoso       5
+2730 A17OWWQ2X3LNOH B000056OV0         Zwarych 3 "a1lisa"       5
+2288 A2O8NZSY5H5BB2 B000056JMU                      Zzzzz       5
+
+reviewerID   "A145NCMNHEL0JL" "A184RI3I2I1DBT"       "A1DNWA98IV5PMW"          
+asin         "B00005QBWZ"     "B00005QBWZ"           "B00005QBWZ"              
+reviewerName "Lola"           "Lucy's Mommy \"Evy\"" "Madison and Nathan's Mom"
+overall      "2"              "4"                    "1"                       
+             4728            4729            4730             4731           
+reviewerID   "AEP29Y8WWC8JH" "AV5D4G1V1CSW2" "A1T542A0B9OYVJ" "AS8SCKO31MA1N"
+asin         "B00005QBWZ"    "B00005QBWZ"    "B00005QBWZ"     "B00005QBXC"   
+reviewerName "M. Anderson"   "Monta Cochran" "S. Skeens"      "B's Mama"     
+overall      "1"             "4"             "3"              "4"            
+             4732                            4733             4734            
+reviewerID   "A1KP8VZQHMZJQW"                "A210U1AGO1WMJG" "A3QYJRK7YVBSU2"
+asin         "B00005QBXC"                    "B00005QBXC"     "B00005QBXC"    
+reviewerName "emluchsinger \"emluchsinger\"" "HP9698"         "Nems"          
+overall      "4"                             "5"              "5"             
+             4735                 4736                   4737           
+reviewerID   "A1MWR03XTJW2N5"     "A1I4NUH64BW64V"       "ASKKSNGQ8XHF4"
+asin         "B00005QBXC"         "B00005QSKC"           "B00005QSKC"   
+reviewerName "New Mom \"Noelle\"" "A. Berke \"chemist\"" "Busy Mom"     
+overall      "3"                  "4"                    "5"            
+             4738             4739           4740            4741           
+reviewerID   "A3OR406J0Y8A90" "A4B9SC622RUJ" "A3WBLXSNSASUI" "ATU8547UX4G9F"
+asin         "B00005QSKC"     "B00005QSKC"   "B00005QSKC"    "B00005QSKC"   
+reviewerName "C. C. Will"     "Jen"          "Jenna Motola"  "J. Jackson"   
+overall      "4"              "5"            "5"             "3"            
+             4742             4743             4744            
+reviewerID   "A3U029B8Z5WGI2" "A2H11AT092SHRA" "A1VF9IT9XPRVF2"
+asin         "B00005QSKC"     "B00005QSKC"     "B00005QSKC"    
+reviewerName "Katherine Chan" "K. Hamm"        "K.J.R.K."      
+overall      "5"              "3"              "5"             
+             4745             4746             4747            
+reviewerID   "A3GXGBOJNEWVNT" "A2YCR3RK42OYAG" "A172K3ANTVMDHT"
+asin         "B00005QSKC"     "B00005QSKC"     "B00005QSKC"    
+reviewerName "Mel"            "Michelle"       "Nance"         
+overall      "4"              "5"              "3"             
+             4748             4749                      4750            
+reviewerID   "A1RKY6QL7SFX5K" "AU3QT4LOGDEOX"           "A35SD6783ET3G8"
+asin         "B00005QSKC"     "B00005QSKC"              "B00005QSKC"    
+reviewerName "NiFO"           "Pediatrician and father" "petunia09"     
+overall      "5"              "5"                       "5"             
+             4751             4752                     4753            
+reviewerID   "A221P4SCG4EO9L" "A1I3LQ5MVUFBC2"         "A3BQ7IFSF6OV9U"
+asin         "B00005QSKC"     "B00005QSKC"             "B00005QSKC"    
+reviewerName "S. Clegg"       "Sharon \"sharon55552\"" "Sherry"        
+overall      "5"              "3"                      "5"             
+             4754             4755             4756            
+reviewerID   "A11I1I9QLMAM1A" "A3GJ0RDALQQT5G" "A1V7O3TXW2FQD5"
+asin         "B00005QSKC"     "B00005QXPE"     "B00005QXPE"    
+reviewerName "S. Power"       "DesertMom"      "Jade Sable"    
+overall      "5"              "1"              "5"             
+             4757             4758                  
+reviewerID   "A3F54A3K5CGLEV" "A3IU7IR378D2NI"      
+asin         "B00005QXPE"     "B00005QXPE"          
+reviewerName "James Daniels"  "jason \"twinmommie\""
+overall      "1"              "3"                   
+             4759                             4760             4761           
+reviewerID   "A1NWOIT53EUA9U"                 "A321UXJ9AW1YSG" "A9REEKTBGZ5W0"
+asin         "B00005QXPE"                     "B00005QXPE"     "B00005QXPE"   
+reviewerName "J. Sosnowski \"Shirey Family\"" "Julie Morgan"   "Lydia's Mommy"
+overall      "2"                              "5"              "4"            
+             4762            4763                            4764            
+reviewerID   "AI6X25RRJ0F1O" "A3NVSUFF2RPXOV"                "A2TF8JIFP9E9LO"
+asin         "B00005QXPE"    "B00005QXPE"                    "B00005RCS1"    
+reviewerName "Taylor"        "William Moor \"William Moor\"" "Dragon Mama"   
+overall      "5"             "5"                             "3"             
+             4765                 4766            4767           
+reviewerID   "A237R7KCLHRSR0"     "ADIMZDAWIZ1UO" "A5LB9HDT02BUP"
+asin         "B00005RCS1"         "B00005RCS1"    "B00005RCS1"   
+reviewerName "EmilyF \"ArtsyEm\"" "F. Ow"         "jb0017"       
+overall      "1"                  "3"             "3"            
+             4768                       4769            4770            
+reviewerID   "A1SHLMPWR0FOVT"           "AJW38GBM45P2Y" "A2A4T3NHN1P5ZS"
+asin         "B00005RCS1"               "B00005RCS1"    "B00005RCS1"    
+reviewerName "J. Karon \"jennifergwl\"" "J. Newman"     "Joey Roberts"  
+overall      "5"                        "4"             "5"             
+             4771             4772             4773            
+reviewerID   "A2UM3TX75R5OLX" "A20QFCXZ3B6OY0" "AKDI0L19GA8DL" 
+asin         "B00005RCS1"     "B00005RCS1"     "B00005RCS1"    
+reviewerName "laineyd"        "Matbiec"        "Mommyx3 \"CQ\""
+overall      "5"              "5"              "5"             
+             4774             4775            4776             4777            
+reviewerID   "A18L5XH218VM1R" "A9X9QSVH0U6D5" "A1PUIS2S8IMAII" "A2I4ZE44AXME2J"
+asin         "B00005RCS1"     "B00005RCS1"    "B00005RCS1"     "B00005RCS1"    
+reviewerName "rif"            "SML"           "SunShine"       "WVD"           
+overall      "2"              "5"             "4"              "1"             
+             4778            4779            
+reviewerID   "A66QP0796987B" "A368PSGLWB6VBU"
+asin         "B00005RH5J"    "B00005RH5J"    
+reviewerName "junemom4me"    "\"kelkev17\""  
+overall      "5"             "2"             
+             4780                                               4781           
+reviewerID   "A1ZTZLCU222JPC"                                   "ADLZJAODZKPO5"
+asin         "B00005RH5J"                                       "B00005RH5J"   
+reviewerName "Tara E. \"Mommy to 3 boys: Cole, Hunter & Owen\"" "trousseau4"   
+overall      "5"                                                "3"            
+             4782                      4783                4784            
+reviewerID   "A3KZV3WIH9MIK3"          "A3OY1IKJKJTHNJ"    "A1B23P1EVL3EGI"
+asin         "B00005RH5J"              "B00005TNIH"        "B00005TNIH"    
+reviewerName "trousseau4 \"Mom of 4\"" "Alice M. Harrison" "Brandi Dupre"  
+overall      "3"                       "3"                 "2"             
+             4785             4786             4787            
+reviewerID   "A3GJ0RDALQQT5G" "A15D2X8MICR2VQ" "A2A4T3NHN1P5ZS"
+asin         "B00005TNIH"     "B00005TNIH"     "B00005TNIH"    
+reviewerName "DesertMom"      "Ephany"         "Joey Roberts"  
+overall      "5"              "3"              "5"             
+             4788                 4789                4790                    
+reviewerID   "AQYYUN3T7B0WM"      "A1G85HUQ51BD30"    "AFM7DWQ762149"         
+asin         "B00005TNIH"         "B00005TNIH"        "B00005TNIH"            
+reviewerName "Karen in Mommyland" "Rista \"ristaus\"" "S. Hughes \"s_hughes\""
+overall      "5"                  "4"                 "2"                     
+             4791                    4792            
+reviewerID   "A1D5F5H38W6AM6"        "A3QRHT6UMT0JNJ"
+asin         "B00005TNIH"            "B00005TZJJ"    
+reviewerName "sntjaxon \"sntjaxon\"" "austin's mom"  
+overall      "5"                     "4"             
+             4793                             4794            4795            
+reviewerID   "ANSSEOPWCINB3"                  "A66QP0796987B" "A33SOZYOTU2MFR"
+asin         "B00005TZJJ"                     "B00005TZJJ"    "B00005TZJJ"    
+reviewerName "E. Goldenberg \"BabySean Mom\"" "junemom4me"    "\"skiwqi\""    
+overall      "3"                              "5"             "2"             
+             4796             4797                4798           
+reviewerID   "A1BDNK3GOLPJL3" "A2G8CW6SIFCOBD"    "AVWEIEGRO8IFB"
+asin         "B00005TZJJ"     "B00005TZJJ"        "B00005U8T5"   
+reviewerName "Smiling33"      "Tiffany Kaczowski" ""             
+overall      "2"              "2"                 "5"            
+             4799            4800              4801             
+reviewerID   "AGH72RHFNRITT" "A3UK5MH8JR22AO"  "A2FP7NVTALD7FT" 
+asin         "B00005U8T5"    "B00005U8T5"      "B00005U8T5"     
+reviewerName "A. Jennings"   "Amazon Customer" "Amazon Customer"
+overall      "5"             "5"               "4"              
+             4802            4803             4804                     
+reviewerID   "A7Y7LVM6BSYH5" "A1YMC6ARY273GI" "A268QM4AOCO9NI"         
+asin         "B00005U8T5"    "B00005U8T5"     "B00005U8T5"             
+reviewerName "A. Mckenna"    "Amy"            "C. Weaver \"PsychoDoc\""
+overall      "5"             "2"              "5"                      
+             4805               4806             4807            
+reviewerID   "AUN2L9ZRJCLIQ"    "A269OBJKREN8HB" "A1QJ3MLXXBIJ5X"
+asin         "B00005U8T5"       "B00005U8T5"     "B00005U8T5"    
+reviewerName "digital.maverick" "Edward"         "Elena"         
+overall      "5"                "5"              "4"             
+             4808                          4809                      
+reviewerID   "A1C97CPP4L95SP"              "A3GY2YV60T3EMD"          
+asin         "B00005U8T5"                  "B00005U8T5"              
+reviewerName "F. Beu \"innately curious\"" "Finley \"picky shopper\""
+overall      "4"                           "4"                       
+             4810             4811              4812            
+reviewerID   "A38I5MODB0RZFV" "A1HZ3E0K3OSXNH"  "A2951NRO6X5I02"
+asin         "B00005U8T5"     "B00005U8T5"      "B00005U8T5"    
+reviewerName "George"         "GulfGirl \"GG\"" "Jamie"         
+overall      "4"              "5"               "2"             
+             4813             4814             4815                   
+reviewerID   "A22D236662B1CI" "A1O0DSIPDD992Q" "ASUCX5TWYM3TA"        
+asin         "B00005U8T5"     "B00005U8T5"     "B00005U8T5"           
+reviewerName "J. C. Good"     "Jenna"          "jennvice \"jennvice\""
+overall      "2"              "5"              "3"                    
+             4816             4817                             4818            
+reviewerID   "A3H7BGDXSBPPEA" "AGEDSQXORMBOA"                  "A1X2OZQUQF8V4Q"
+asin         "B00005U8T5"     "B00005U8T5"                     "B00005U8T5"    
+reviewerName "Jeremy Wilcock" "Kevin S. Wulzen \"KevDoginCA\"" "LadyBuckeye"   
+overall      "4"              "2"                              "5"             
+             4819             4820             4821            
+reviewerID   "A3KIWYWHBUTZZX" "A2VKOUGL07T2Q6" "A3H3WK2WEE6K4C"
+asin         "B00005U8T5"     "B00005U8T5"     "B00005U8T5"    
+reviewerName "Lamejame"       "Lily"           "LisaP"         
+overall      "2"              "3"              "5"             
+             4822             4823             4824            
+reviewerID   "A34AHOC0OXMR2K" "A3211IGL56WLBK" "A2U1H1JT7FPGB4"
+asin         "B00005U8T5"     "B00005U8T5"     "B00005U8T5"    
+reviewerName "Lobotomy"       "Marie Beech"    "Mimi"          
+overall      "3"              "5"              "5"             
+             4825             4826             4827                       
+reviewerID   "A16FCEZG1BD1Y2" "A3E334Z2QVDGZU" "A3SNVLEGI4CSJ3"           
+asin         "B00005U8T5"     "B00005U8T5"     "B00005U8T5"               
+reviewerName "mt. kenya"      "Nikki"          "okiepharm \"Dusty Allen\""
+overall      "4"              "5"              "2"                        
+             4828             4829            4830             4831            
+reviewerID   "A1GGLUMIGG05MU" "AOWONRTZ8J7JI" "A2JPRGJ2GVDANZ" "A2TTLL0C1BO6AW"
+asin         "B00005U8T5"     "B00005U8T5"    "B00005U8T5"     "B00005U8T5"    
+reviewerName "Paula J Baty"   "Phil"          "Read It All"    "R. Fuller"     
+overall      "5"              "1"             "5"              "2"             
+             4832                    4833             4834               
+reviewerID   "A1G4PDC7AI56XG"        "A3TYXVPPKM0QGU" "A29JZ7LA58DMU0"   
+asin         "B00005U8T5"            "B00005U8T5"     "B00005U8T5"       
+reviewerName "Ronindoc \"Ronindoc\"" "SafeT \"Troy\"" "Silver Spring Mom"
+overall      "5"                     "4"              "1"                
+             4835                                               4836           
+reviewerID   "AHQ2JVERM1DJW"                                    "AO4955RQHBQSS"
+asin         "B00005U8T5"                                       "B00005U8T5"   
+reviewerName "S. Pedersen \"Book, Bath & Bed.. wind me down!\"" "St. Vaughn"   
+overall      "5"                                                "5"            
+             4837             4838                        4839            
+reviewerID   "A36NPMPDTCVDD8" "AO8HJ8MZKPUWC"             "A20L63B48RPSOH"
+asin         "B00005U8T5"     "B00005U8T5"                "B00005U8T5"    
+reviewerName "User"           "With two daughters in tow" "Wix"           
+overall      "1"              "4"                         "5"             
+             4840            4841                  
+reviewerID   "AZSWK30ZQ64UX" "A6YBOIKMVJT33"       
+asin         "B00005U8T5"    "B00005UC6D"          
+reviewerName "Zo's  Mommy"   "Amy S. Liu \"Mavis\""
+overall      "1"             "5"                   
+             4842                             
+reviewerID   "A1OAQLHCVKKNC5"                 
+asin         "B00005UC6D"                     
+reviewerName "Ana Hotaling \"saotomeranchan\""
+overall      "1"                              
+             4843                                     
+reviewerID   "A2HODZ0I0U5FPL"                         
+asin         "B00005UC6D"                             
+reviewerName "Anelys Flores \"(momto3littleflowers)\""
+overall      "1"                                      
+             4844                              4845            4846            
+reviewerID   "A1VQ6XJE30QZOG"                  "A1VGJXBXQFEXH" "A1KIA7Z2D9BPUC"
+asin         "B00005UC6D"                      "B00005UC6D"    "B00005UC6D"    
+reviewerName "Audrey Benjamin \"audreyb1975\"" "Aya Mashina"   "Carns"         
+overall      "5"                               "5"             "5"             
+             4847             4848           
+reviewerID   "A36C38PJBA5ZKS" "AEJO52D6N38N6"
+asin         "B00005UC6D"     "B00005UC6D"   
+reviewerName "ChristinaB"     "Dadari83"     
+overall      "3"              "1"            
+             4849                                               
+reviewerID   "AHNHLGKIZ2N3B"                                    
+asin         "B00005UC6D"                                       
+reviewerName "D. R. Jeanclerc \"Reader, Listener & Obsessive..."
+overall      "4"                                                
+             4850                             4851            4852            
+reviewerID   "ANSSEOPWCINB3"                  "AJGU56YG8G1DQ" "A2KK9JWB7W9TNC"
+asin         "B00005UC6D"                     "B00005UC6D"    "B00005UC6D"    
+reviewerName "E. Goldenberg \"BabySean Mom\"" "E. Kennedy"    "Grass Tiger"   
+overall      "3"                              "5"             "4"             
+             4853            4854            
+reviewerID   "AAA9P8S83GXAC" "A1CDCV4GU7Z493"
+asin         "B00005UC6D"    "B00005UC6D"    
+reviewerName "JenL"          "jessicafae"    
+overall      "5"             "4"             
+             4855                                        4856               
+reviewerID   "A2TIZYHKY3TL6A"                            "A1H1JZ79JTKO6C"   
+asin         "B00005UC6D"                                "B00005UC6D"       
+reviewerName "J. G. Mcclanahan \"Momof 2wonderfulboys\"" "khodel \"khodel\""
+overall      "5"                                         "3"                
+             4857            4858             4859             4860            
+reviewerID   "AGN4O0F7QMK8B" "A3N4O7GZ2UTX70" "A2EB1CRB5ZZYT9" "A3SWY9IV1VD13Z"
+asin         "B00005UC6D"    "B00005UC6D"     "B00005UC6D"     "B00005UC6D"    
+reviewerName "kristaschell"  "lamplandj"      "lkaycq"         "\"maksimka\""  
+overall      "1"             "4"              "4"              "1"             
+             4861             4862            
+reviewerID   "A18WXCAQMKHSR9" "A14DZZOIJEFB54"
+asin         "B00005UC6D"     "B00005UC6D"    
+reviewerName "Martha Growdon" "Meagan"        
+overall      "2"              "5"             
+             4863                             
+reviewerID   "A17VIBT0O9LTPO"                 
+asin         "B00005UC6D"                     
+reviewerName "Mom2LeLeNRyRy \"1Pink1Blue4Us\""
+overall      "1"                              
+             4864                                   4865                     
+reviewerID   "AHGG8UV27DSUT"                        "A18NZJT9G9DS13"         
+asin         "B00005UC6D"                           "B00005UC6D"             
+reviewerName "MomOfThree \"mother_of_1_baby_girl\"" "M. Woods \"shortymshl\""
+overall      "5"                                    "5"                      
+             4866             4867                    4868           
+reviewerID   "A307YFSORUAXSQ" "ATY1TGX2BDL53"         "AFS13V0NIGP7B"
+asin         "B00005UC6D"     "B00005UC6D"            "B00005UC6D"   
+reviewerName "NYCPickyMom"    "Rachael T \"Rachael\"" "R. Miller"    
+overall      "5"              "4"                     "2"            
+             4869             4870            4871            
+reviewerID   "A2WNXS3CNAQS01" "APPMWAMDEX0XA" "A33SOZYOTU2MFR"
+asin         "B00005UC6D"     "B00005UC6D"    "B00005UC6D"    
+reviewerName "Sapere Aude"    "Scarlett"      "\"skiwqi\""    
+overall      "1"              "4"             "5"             
+             4872                     4873           
+reviewerID   "A3HSQD4KEAC60O"         "AF9SQ0S6UR8N1"
+asin         "B00005UC6D"             "B00005UC6D"   
+reviewerName "Sue Miller \"samosue\"" "T Boogie"     
+overall      "5"                      "4"            
+             4874                         4875            4876            
+reviewerID   "A12N7C8RUYL3AA"             "AA96HGH5YXWE8" "A113MCPLAVCP7Z"
+asin         "B00005UC6D"                 "B00005UC6D"    "B00005UC6Q"    
+reviewerName "T. Newby \"HAPPY SHOPPER\"" "vrm"           "agp7 \"agp7\"" 
+overall      "5"                          "1"             "1"             
+             4877                    4878                  
+reviewerID   "A20DOV7JIMJMJ2"        "A25OXZ8LCU88JG"      
+asin         "B00005UC6Q"            "B00005UC6Q"          
+reviewerName "Alvaro Munoz \"MUAR\"" "B. M. Lackey \"BML\""
+overall      "5"                     "2"                   
+             4879                              4880            
+reviewerID   "A3XZCX4QM2MIW"                   "A14AZWOLGK6MD3"
+asin         "B00005UC6Q"                      "B00005UC6Q"    
+reviewerName "C. H. Israel \"&#34;Nana&#34;\"" "Cousin It"     
+overall      "5"                               "5"             
+             4881             4882             4883            
+reviewerID   "A2KLI6DQAP4EWZ" "A3UFP02XWWYXPD" "A30B43AJP2PPC2"
+asin         "B00005UC6Q"     "B00005UC6Q"     "B00005UC6Q"    
+reviewerName "diane page"     "Jay N Hardesty" "jfork"         
+overall      "4"              "2"              "5"             
+             4884             4885                  4886           
+reviewerID   "A34MM8TGALLA1H" "A1TCFQP6796ZYB"      "AZJ5ZLH8EYXML"
+asin         "B00005UC6Q"     "B00005UC6Q"          "B00005UC6Q"   
+reviewerName "lahardy96"      "Layla Jane Anderson" "Momof2inFL"   
+overall      "3"              "3"                   "5"            
+             4887            4888             4889            4890           
+reviewerID   "AO37OH3ULGSC5" "A1CGBKY0X0AI20" "AG4E44KM93P4L" "APGEVEEVRR31R"
+asin         "B00005UC6Q"    "B00005UC6Q"     "B00005UC6Q"    "B00005UC6Q"   
+reviewerName "MV SLC"        "pnbrownWA"      "Silofish"      "S_Juarez"     
+overall      "4"             "3"              "5"             "4"            
+             4891            4892             4893            4894             
+reviewerID   "AVXOFMQLGBUM2" "A3D3UHFNSO5ISQ" "AFNE6AFYU3ZVD" "A2MGKOF7Y17S90" 
+asin         "B00005UC6Q"    "B00005UC6Q"     "B00005V5MU"    "B00005V5MU"     
+reviewerName "Sjzp"          "Subtitles"      "A. Fink"       "Amazon Customer"
+overall      "3"             "4"              "4"             "5"              
+             4895             4896             4897              
+reviewerID   "A3AQBWK6KSY7P1" "A1FSVJRNZS0O1T" "A3BS6QC0IKNF4Y"  
+asin         "B00005V5MU"     "B00005V5MU"     "B00005V5MU"      
+reviewerName "ckccbrown"      "Inna"           "Jane Book Reader"
+overall      "5"              "5"              "5"               
+             4898             4899                           
+reviewerID   "A276OI0NHBYORX" "A3KNXWG1ZGUWW2"               
+asin         "B00005V5MU"     "B00005V6C8"                   
+reviewerName "Rebecca N"      "2SetsOfTwinsUnder3 \"Reilly\""
+overall      "5"              "5"                            
+             4900                                       4901            
+reviewerID   "A1CNYV02J97BE0"                           "A18MUR2IWCVRQX"
+asin         "B00005V6C8"                               "B00005V6C8"    
+reviewerName "Allison Lebaron \"mom of 4 little ones\"" "Amanda C"      
+overall      "1"                                        "4"             
+             4902                       4903             4904           
+reviewerID   "ATA82P9JAXE9D"            "A2AOTI8NJGJW4D" "AZHUU218UHYNG"
+asin         "B00005V6C8"               "B00005V6C8"     "B00005V6C8"   
+reviewerName "Amazon Customer \"Pato\"" "Amy"            "Andrew"       
+overall      "1"                        "5"              "5"            
+             4905             4906             4907                            
+reviewerID   "A32VISP9YA2BG8" "A2HBKNFL10UIM5" "A29G5ZTEFSDRT6"                
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"                    
+reviewerName "Anonymous"      "Artsee"         "A. Szwejbka \"Evelyn's Mommy\""
+overall      "4"              "5"              "5"                             
+             4908             4909                               
+reviewerID   "A24BFDC0YP3YJS" "A2FPTAQN4QENZE"                   
+asin         "B00005V6C8"     "B00005V6C8"                       
+reviewerName "Audrey's Mom"   "Bailey Stratford \"DietDrPepper\""
+overall      "4"              "5"                                
+             4910             4911             4912            
+reviewerID   "A1HF1SC6NCYKSO" "A199ZNO0KJV76P" "A2NCH48JEFSZER"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "Bargain Hunter" "BCB"            "Beaker75"      
+overall      "1"              "4"              "3"             
+             4913             4914             4915            
+reviewerID   "A2RAHVQXI12VGA" "A1I5TOJ4Q47YMT" "A251P76QFB2GFM"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "BeGreen"        "Blumbriel"      "Breeze"        
+overall      "3"              "5"              "5"             
+             4916             4917            4918                      
+reviewerID   "A32U4VP3MT37NB" "AKKXYLLFVCHGW" "A231776FXQA2BR"          
+asin         "B00005V6C8"     "B00005V6C8"    "B00005V6C8"              
+reviewerName "Brenda"         "Brian Fuchs"   "CaringMomma \"Christie\""
+overall      "5"              "4"             "5"                       
+             4919             4920             4921            4922            
+reviewerID   "A37KR01JKQTDWZ" "A2FSSW80YTIOV3" "A8EHJ3Z7DM4WM" "A3PYZ493962DGP"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    "B00005V6C8"    
+reviewerName "C Bermudez"     "Charlie"        "Claire"        "C. Pinchon"    
+overall      "3"              "4"              "4"             "2"             
+             4923              4924             4925           
+reviewerID   "A3NKA36FCBVEJ4"  "A27FQ7Y7G5Z7X6" "A6URFNEMXO9D5"
+asin         "B00005V6C8"      "B00005V6C8"     "B00005V6C8"   
+reviewerName "CreativeShopper" "C. Rumsey"      "Dan Berman"   
+overall      "5"               "3"              "4"            
+             4926             4927             4928                            
+reviewerID   "A2LH80C2RQC8L1" "A1K7Z6VH75RXYD" "A1J6Z9T0L4F4XR"                
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"                    
+reviewerName "DClark12"       "deevyah"        "DoubleTroubleBOYS \"Michelle\""
+overall      "3"              "5"              "5"                             
+             4929                          4930           
+reviewerID   "AG78NCYYTD3S1"               "AH367LD4DRPAP"
+asin         "B00005V6C8"                  "B00005V6C8"   
+reviewerName "E. Demskis \"Bean's mommy\"" "EECinEP"      
+overall      "5"                           "5"            
+             4931                            4932               
+reviewerID   "A1AZUG4JGN7DJY"                "A3UISFQMOSZJMO"   
+asin         "B00005V6C8"                    "B00005V6C8"       
+reviewerName "Elizabeth Long \"LizzyBizzy\"" "Elizebeth Neumann"
+overall      "5"                             "5"                
+             4933             4934             4935            
+reviewerID   "A2OAQHQRJQP6J7" "A2334L38J5Y0TO" "A2HWEJJNR6788B"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "Emily G"        "ernedavis33"    "Faith C."      
+overall      "4"              "3"              "5"             
+             4936             4937             4938           4939            
+reviewerID   "A3N5FK8Z1X8WCW" "A19WJO5I1Z0XSQ" "AFA4Q7IF5DIT" "A2A29FW9USZ2WY"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"   "B00005V6C8"    
+reviewerName "Gianna's Mama"  "GreenShopper"   "Irene Lopez"  "Jacqueline"    
+overall      "3"              "3"              "5"            "5"             
+             4940             4941             4942           
+reviewerID   "A1V7O3TXW2FQD5" "A3SFY4VG2JPFZ4" "AIL4J5XX7Y8HK"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"   
+reviewerName "Jade Sable"     "Jem"            "jendel"       
+overall      "4"              "3"              "4"            
+             4943                              4944            
+reviewerID   "A15F75YXETI2BG"                  "A2Y1IOE697O40O"
+asin         "B00005V6C8"                      "B00005V6C8"    
+reviewerName "Jennifer Wilkerson \"Jenneryy\"" "J.M."          
+overall      "5"                               "2"             
+             4945             4946             4947                     
+reviewerID   "A3LCQXQ4SFYBAU" "A22JJMA7YFDUDS" "A3DP2PYYM7PSRY"         
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"             
+reviewerName "Johna Jane"     "Kady \"Kady\""  "KFChicago \"Twinboys2\""
+overall      "5"              "5"              "2"                      
+             4948             4949             4950            
+reviewerID   "A18ZJK24U57V4I" "A28B5NQTDP9VDH" "A1CRT2UI0YIOQN"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "K. Huffman"     "Kimberly"       "Krista"        
+overall      "5"              "4"              "5"             
+             4951             4952                                
+reviewerID   "A1OB2JH5WUKFWI" "A2MMYN8VLJ63J0"                    
+asin         "B00005V6C8"     "B00005V6C8"                        
+reviewerName "Kristi Horn"    "Kristina L. Johnson \"K. Johnson\""
+overall      "5"              "4"                                 
+             4953             4954            4955             4956            
+reviewerID   "A28WA65B0RW25Z" "A3VR9XQZEPB06" "A17IV4YAX2UZOF" "A22L5OEZ4UPJWS"
+asin         "B00005V6C8"     "B00005V6C8"    "B00005V6C8"     "B00005V6C8"    
+reviewerName "kristin"        "Kristi Riley"  "K. Toppa"       "Lalila"        
+overall      "3"              "3"             "5"              "5"             
+             4957            4958             4959             4960            
+reviewerID   "AM5JS7R9G322R" "A2WK7ZBM33IF5L" "A174AQ2AY4E2RO" "A3EZNDR7KN1XCN"
+asin         "B00005V6C8"    "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "Liz"           "Lizzie"         "L. P. Carvajal" "Mags"          
+overall      "3"             "5"              "2"              "5"             
+             4961                          4962            4963            
+reviewerID   "ALLHJD3KZF9KC"               "AYVMBJ29OHEHK" "A3LFZ5EP2TA5P9"
+asin         "B00005V6C8"                  "B00005V6C8"    "B00005V6C8"    
+reviewerName "Maria Poole \"Maria Poole\"" "Mboke"         "M. Creech"     
+overall      "4"                           "5"             "5"             
+             4964                 4965            4966            
+reviewerID   "A2O104FRC3E7XQ"     "A5BJMAHZWGJ7N" "A39R9S29IEPGOD"
+asin         "B00005V6C8"         "B00005V6C8"    "B00005V6C8"    
+reviewerName "MDLK \"New mommy\"" "Melaina Lara"  "M. Gunderson"  
+overall      "5"                  "3"             "1"             
+             4967             4968             4969            
+reviewerID   "A3A73FMG629P9W" "A239W4J38AQRTI" "A2J946Z08UXM5P"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "M. L. Mayo"     "mommagurl13"    "Mom of 2 boys" 
+overall      "5"              "4"              "5"             
+             4970                  4971             4972            
+reviewerID   "A1TCX0R35T4WEH"      "A1J1WNMXWHU49E" "A2WDZ4SENX5KKI"
+asin         "B00005V6C8"          "B00005V6C8"     "B00005V6C8"    
+reviewerName "MomOf2BOYS \"Lucy\"" "M. Parks"       "Natalie Knight"
+overall      "5"                   "2"              "5"             
+             4973              4974            
+reviewerID   "A2K5RRMPICZ606"  "A3QYJRK7YVBSU2"
+asin         "B00005V6C8"      "B00005V6C8"    
+reviewerName "Nathaniel Allen" "Nems"          
+overall      "5"               "5"             
+             4975                                                
+reviewerID   "ADITSMTD4WD20"                                     
+asin         "B00005V6C8"                                        
+reviewerName "Newborn Screening Advocate \"tera@savebabies.org\""
+overall      "5"                                                 
+             4976             4977             4978            
+reviewerID   "A215LLZ0BLO4JK" "A1U8SH0HJNLBDE" "A3CNZ6IFNZQFUG"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "New Mom in '06" "NurseTRex"      "OutOfTexas"    
+overall      "5"              "1"              "5"             
+             4979             4980             4981            
+reviewerID   "A1NP5CIW6DCXF2" "A3L0FEQ7P4PHDO" "A2ISVY5IGQSO1Z"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "Rachel"         "Rachel"         "Rachel T"      
+overall      "5"              "4"              "1"             
+             4982             4983             4984            
+reviewerID   "A1IL8A3DD0QDGR" "A18GB8RNROL1Z4" "A14P4HH62TG2L6"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "ragrubbs"       "R. Paterson"    "Sallye S."     
+overall      "5"              "5"              "3"             
+             4985             4986             4987            
+reviewerID   "A3LIITRB4K2Z0K" "A2NTHBZOLO6WEY" "A3SG0Z8NDPIYJ2"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "Samantha"       "Sara"           "seidhkona"     
+overall      "5"              "5"              "5"             
+             4988             4989                     4990           
+reviewerID   "A2SRSRCC2TR2GM" "A2BI2TZBY6RFFR"         "AY0B9FSO4HPV5"
+asin         "B00005V6C8"     "B00005V6C8"             "B00005V6C8"   
+reviewerName "sjr"            "S. Rocco \"Sil's mom\"" "stealme"      
+overall      "4"              "5"                      "5"            
+             4991                         4992             4993            
+reviewerID   "A3NMIZOMLSFOEM"             "A3DOPRK8MAGG6C" "A2ZA4FYM7ML6QP"
+asin         "B00005V6C8"                 "B00005V6C8"     "B00005V6C8"    
+reviewerName "Streamlined Mom \"Lizzie\"" "SuperAng"       "Taylor's Mommy"
+overall      "5"                          "5"              "5"             
+             4994             4995             4996            
+reviewerID   "A2HHAV29CZ1OIE" "A11X9HWN09P7MC" "A2SHSPUC68H34G"
+asin         "B00005V6C8"     "B00005V6C8"     "B00005V6C8"    
+reviewerName "TheProf"        "ThreePeas"      "Tony L."       
+overall      "5"              "4"              "3"             
+             4997                               4998                      
+reviewerID   "A2UDGUP80JVKBO"                   "A36A0QRF0PO4EV"          
+asin         "B00005V6C8"                       "B00005V6C8"              
+reviewerName "Vicki A. Peters \"Vicki Peters\"" "Vincent Bronte \"Ciela\""
+overall      "5"                                "4"                       
+             4999             5000                            5001            
+reviewerID   "A1A596A9X1JN2A" "A3VZZAN0023N5Z"                "A1Q1T811N4IY3Z"
+asin         "B00005V6C8"     "B00005V6C8"                    "B00005V6C8"    
+reviewerName "Viz"            "Wine Please \"mom of 3 boys\"" "Wixby Bonnet"  
+overall      "5"              "5"                             "4"             

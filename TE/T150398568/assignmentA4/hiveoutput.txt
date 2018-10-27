@@ -1,0 +1,165 @@
+
+
+https://www.tutorialspoint.com/hive/hive_alter_table.htm
+
+
+Hbase Terminal ----
+
+start-hbase.sh
+hbase shell
+
+
+hbase(main):004:0> create 'hbase_flight10','flighno','source','dest','delay'
+0 row(s) in 2.7270 seco
+
+
+Hive Terminal ---
+start hadoop
+hive
+
+
+
+
+
+
+
+hive> create external table hive_flight(key String, fno int, s String, d String, dly int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties("hbase.columns.mapping"="flighno:fno,source:s,dest:d,delay:dly")
+    > tblproperties("hbase.table.name"="hbase_flight10");
+OK
+Time taken: 0.382 seconds
+hive> 
+
+hive> create table fdemo1 (key String, fno int, s String, d String, dly int)
+    >  row format delimited
+    > fields terminated by '\t';
+OK
+Time taken: 0.23 seconds
+hive> 
+
+
+hive> load data local inpath '/home/hduser/Desktop/flight.txt' into table fdemo1;
+Loading data to table default.fdemo1
+OK
+Time taken: 2.042 seconds
+hive> 
+
+hive> insert overwrite table hive_flight select * from fdemo2;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e.
+
+
+hive> select * from hive_flight;
+OK
+r5	123	pune	Mumbai	13
+r6	12	Latur	Pune	20
+r7	101	Nanded	nashik	12
+Time taken: 0.27 seconds, Fetched:
+
+
+hive> select avg(dly) from hive_flight;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = hduser_20180410161303_5f36c639-7ed5-44fa-b8ff-bad5754d3b8d
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2018-04-10 16:13:12,998 Stage-1 map = 0%,  reduce = 0%
+2018-04-10 16:13:14,096 Stage-1 map = 100%,  reduce = 0%
+2018-04-10 16:13:15,115 Stage-1 map = 100%,  reduce = 100%
+Ended Job = job_local98382123_0001
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 132 HDFS Write: 0 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+15.0
+Time taken: 11.61 seconds, Fetched: 1 row(s)
+hive> 
+
+
+
+
+hbase Terminal-------
+
+hbase(main):002:0> put 'hbase_flight10','r4','delay','23'
+0 row(s) in 0.2930 seconds
+
+hbase(main):003:0> put 'hbase_flight10','r4','dest','nagpur'
+0 row(s) in 0.0140 seconds
+
+hbase(main):004:0> put 'hbase_flight10','r4','flighno','134'
+0 row(s) in 0.0220 seconds
+
+hbase(main):005:0> put 'hbase_flight10','r4','source','goa'
+0 row(s) in 0.0120 seconds
+
+
+hbase(main):006:0> scan 'hbase_flight10'
+ROW                                  COLUMN+CELL                                                                                               
+ r4                                  column=delay:, timestamp=1523355839844, value=23                                                          
+ r4                                  column=dest:, timestamp=1523355861977, value=nagpur                                                       
+ r4                                  column=flighno:, timestamp=1523355894678, value=134                                                       
+ r4                                  column=source:, timestamp=1523355932348, value=goa                                                        
+ r5                                  column=delay:dly, timestamp=1523355077472, value=13                                                       
+ r5                                  column=dest:d, timestamp=1523355077472, value=Mumbai                                                      
+ r5                                  column=flighno:fno, timestamp=1523355077472, value=123                                                    
+ r5                                  column=source:s, timestamp=1523355077472, value=pune                                                      
+ r6                                  column=delay:dly, timestamp=1523355077472, value=20                                                       
+ r6                                  column=dest:d, timestamp=1523355077472, value=Pune                                                        
+ r6                                  column=flighno:fno, timestamp=1523355077472, value=12                                                     
+ r6                                  column=source:s, timestamp=1523355077472, value=Latur                                                     
+ r7                                  column=delay:dly, timestamp=1523355077472, value=12                                                       
+ r7                                  column=dest:d, timestamp=1523355077472, value=nashik                                                      
+ r7                                  column=flighno:fno, timestamp=1523355077472, value=101                                                    
+ r7                                  column=source:s, timestamp=1523355077472, value=Nanded                                                    
+4 row(s) in 0.1040 seconds
+
+hbase(main):007:0> 
+
+
+
+
+hive terminal------
+hive> CREATE INDEX index1 ON TABLE fdemo1(fno)
+    > AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler'
+    > WITH DEFERRED REBUILD;
+OK
+Time taken: 1.892 seconds
+hive>
+
+
+hive> ALTER TABLE fdemo1 RENAME TO fdemo10;
+OK
+Time taken: 0.692 seconds
+hive> 
+
+
+hive> ALTER TABLE fdemo10 ADD COLUMNS ( 
+    > dept1 STRING );
+OK
+Time taken: 0.287 seconds
+hive> describe fdemo10;
+OK
+key                 	string              	                    
+fno                 	int                 	                    
+s                   	string              	                    
+d                   	string              	                    
+dly                 	int                 	                    
+dept                	string              	Department name     
+dept1               	string              	                    
+Time taken: 0.094
+
+
+
+
+hive> DROP TABLE IF EXISTS fdemo10;
+OK
+Time taken: 6.324 seconds
+hive> 
+

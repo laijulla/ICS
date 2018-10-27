@@ -1,0 +1,100 @@
+
+
+Hive Terminal ---
+start-all.sh
+hive
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+create database if not exists ketan
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+hive> create table fdemo1 (key String, fno int, s String, d String, dly int)
+    >  row format delimited
+    > fields terminated by '\t';
+OK
+Time taken: 0.23 seconds
+hive> 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+hive> load data local inpath '/home/hduser/Desktop/flight.txt' into table fdemo1;
+Loading data to table default.fdemo1
+OK
+Time taken: 2.042 seconds
+hive> 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+hive> select * from fdemo1;
+OK
+r5	123	pune	Mumbai	13
+r6	12	Latur	Pune	20
+r7	101	Nanded	nashik	12
+Time taken: 0.27 seconds, Fetched:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+hive> select avg(dly) from fdemo1;
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = hduser_20180410161303_5f36c639-7ed5-44fa-b8ff-bad5754d3b8d
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2018-04-10 16:13:12,998 Stage-1 map = 0%,  reduce = 0%
+2018-04-10 16:13:14,096 Stage-1 map = 100%,  reduce = 0%
+2018-04-10 16:13:15,115 Stage-1 map = 100%,  reduce = 100%
+Ended Job = job_local98382123_0001
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 132 HDFS Write: 0 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+15.0
+Time taken: 11.61 seconds, Fetched: 1 row(s)
+hive> 
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+hive> CREATE INDEX index1 ON TABLE fdemo1(fno)
+    > AS 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler'
+    > WITH DEFERRED REBUILD;
+OK
+Time taken: 1.892 seconds
+hive>
+
+
+!!!!!!!!!!!!!!!!altER
+hive> ALTER TABLE fdemo1 RENAME TO fdemo10;
+OK
+Time taken: 0.692 seconds
+hive> 
+
+
+!!!!!!!!!!!!!!!!!!!!ALTER
+hive> ALTER TABLE fdemo10 ADD COLUMNS ( 
+    > dept1 STRING );
+OK
+Time taken: 0.287 seconds
+hive> describe fdemo10;
+OK
+key                 	string              	                    
+fno                 	int                 	                    
+s                   	string              	                    
+d                   	string              	                    
+dly                 	int                 	                    
+dept                	string              	Department name     
+dept1               	string              	                    
+Time taken: 0.094
+
+
+
+!!!!!!!!!!DROP TABLE
+hive> DROP TABLE IF EXISTS fdemo10;
+OK
+Time taken: 6.324 seconds
+hive> 
+
+

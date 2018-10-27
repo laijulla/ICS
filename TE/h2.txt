@@ -1,0 +1,16 @@
+hadoop cd 
+start-all.sh
+jps
+
+localhost:50070
+
+hadoop dfs -mkdir /ketan
+
+hadoop dfs -put path of file/accesslog.txt /ketan
+
+hadoop jar path of jar/sample.jar logcnt1.Ldrive /ketan/accesslog.txt /ketan/output
+
+utilities
+systfile
+ketan/out
+
