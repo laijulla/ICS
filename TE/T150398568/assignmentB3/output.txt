@@ -1,7 +1,0 @@
-!	3
-.	2
-All	1
-Hello	1
-to	1
-viit	1
-welcome	1
